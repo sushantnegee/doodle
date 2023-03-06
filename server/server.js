@@ -9,9 +9,10 @@ dotenv.config();
 connectDatabase();
 app.use(express.json());
 
-app.get('/', (req,res)=>{
-    res.send("Api is running");
-})
+// app.get('/', (req,res)=>{
+//     res.send("Api is running");
+// })
+app.use('/api/user',userRoutes)
 
 // app.get("/api/chat",(req,res)=>{
 // res.send("data");
@@ -24,7 +25,6 @@ app.get('/', (req,res)=>{
 app.use(notFound);
 app.use(errorHandler);
 
-app.use('/api/user',userRoutes)
 
 const PORT  = process.env.PORT || 5000; 
 app.listen(PORT, console.log(`listning on ${PORT}`))
