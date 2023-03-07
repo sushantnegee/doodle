@@ -52,7 +52,7 @@ const SideDrawer = () => {
       };
 
       const { data } = await axios.get(`/api/user?search=${search}`, config);
-
+      console.log(data ,"=>search result")
       setLoading(false);
       setSearchResult(data);
     } catch (error) {
@@ -85,6 +85,7 @@ const SideDrawer = () => {
       setLoadingChat(false);
       onClose();
     } catch (error) {
+      // setLoadingChat(false);
       toast({
         title: "Error fetching the chat",
         description: error.message,
@@ -95,7 +96,7 @@ const SideDrawer = () => {
       });
     }
   };
-
+  
 
   return (
     <>
@@ -177,7 +178,7 @@ const SideDrawer = () => {
             )
             // <h1>lol</h1>
             }
-            {loadingChat && <Spinner ml="auto" d="flex" />}
+            {loadingChat ? <Spinner ml="auto" d="flex" />:""}
           </DrawerBody>
         </DrawerContent>
       </Drawer></>
