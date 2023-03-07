@@ -15,7 +15,7 @@ const ChatProvider = ({children}) => {
       
       setUser(userInfo);
       if (!userInfo) redirect("/");
-  },[])
+  })
   console.log(user)
   return (
     <ChatContext.Provider value={{
