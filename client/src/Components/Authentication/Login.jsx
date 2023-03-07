@@ -27,14 +27,16 @@ const Login = () => {
           setLoading(false);
           return;
     }
+    console.log('inside')
     try{
         const config = {
             headers:{
                 "Content-type":"application/json"
             }
         };
+        console.log('inside config')
 
-        const data = await axios.post("/api/user/login",{email,password},config);
+    const {data} = await axios.post("/api/user/login",{email,password},config);
 
         toast({
             title: 'Login Successfull',
@@ -43,7 +45,7 @@ const Login = () => {
             isClosable: true,
             position:"bottom"
           })
-
+          console.log("inside try")
           localStorage.setItem('userInfo',JSON.stringify(data));
           setLoading(false);
         //   history.push("/chats");
@@ -57,6 +59,7 @@ const Login = () => {
             isClosable: true,
             position:"bottom"
           })
+          console.log('in error')
           console.log("error:",error)
           setLoading(false); 
     }

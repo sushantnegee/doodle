@@ -88,6 +88,7 @@ const Signup = () => {
                 isClosable: true,
                 position:"bottom"
               })
+              setLoading(false);
               return;
         }
 
@@ -110,7 +111,7 @@ const Signup = () => {
               localStorage.setItem('userInfo',JSON.stringify(data));
               setLoading(false);
             //   history.push("/chats");
-              navigate("/chats");
+              navigate.push("/chats");
             
         }catch(error){
             toast({
