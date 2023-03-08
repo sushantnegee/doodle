@@ -21,13 +21,16 @@ const SideDrawer = () => {
     setSelectedChat,
     user,
     chats,
+    setLoggedIn,
     setChats,
   } = ChatState();
   const navigate = useNavigate();
   const toast = useToast();
+
   const logoutHandler = () => {
     localStorage.removeItem("userInfo");
     navigate("/");
+    setLoggedIn(false);
   };
 
   const handleSearch = async () => {
@@ -68,7 +71,7 @@ const SideDrawer = () => {
   };
 
   const accessChat = async (userId) => {
-    console.log(userId);
+    console.log("userId =>",userId);
 
     try {
       setLoadingChat(true);
@@ -78,14 +81,17 @@ const SideDrawer = () => {
           Authorization: `Bearer ${user.token}`,
         },
       };
+      console.log(user.token);
       const { data } = await axios.post(`/api/chat`, { userId }, config);
-
+      console.log("data=>",data)
       if (!chats.find((c) => c._id === data._id)) setChats([data, ...chats]);
+      console.log("yes here")
       setSelectedChat(data);
       setLoadingChat(false);
       onClose();
     } catch (error) {
       // setLoadingChat(false);
+      console.log(error.message)
       toast({
         title: "Error fetching the chat",
         description: error.message,
@@ -97,7 +103,7 @@ const SideDrawer = () => {
     }
   };
   
-
+  console.log(loadingChat)
   return (
     <>
     <Box 

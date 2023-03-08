@@ -28,6 +28,7 @@ const MyChats = () => {
       };
 
       const { data } = await axios.get("/api/chat", config);
+      console.log("below fetching")
       setChats(data);
     } catch (error) {
       toast({
@@ -44,7 +45,7 @@ const MyChats = () => {
   useEffect(() => {
     setLoggedUser(JSON.parse(localStorage.getItem("userInfo")));
     fetchChats();
-  }, []);
+  },[]);
   return (
     <Box
       display={{ base: selectedChat ? "none" : "flex", md: "flex" }}

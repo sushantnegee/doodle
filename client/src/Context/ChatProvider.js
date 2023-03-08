@@ -8,14 +8,14 @@ const ChatProvider = ({children}) => {
     const [selectedChat, setSelectedChat] = useState();
   const [user, setUser] = useState();
   const [chats, setChats] = useState([]);
+  const [loggedIn,setLoggedIn] = useState(false);
 
 //   const navigate = useNavigate();
   useEffect(()=>{
       const userInfo = JSON.parse(localStorage.getItem("userInfo"));
-      
       setUser(userInfo);
       if (!userInfo) redirect("/");
-  },[chats])
+  },[loggedIn])
   console.log("context")
   return (
     <ChatContext.Provider value={{
@@ -25,6 +25,7 @@ const ChatProvider = ({children}) => {
         setUser,
         chats,
         setChats,
+        setLoggedIn
     }}>
         {children}
     </ChatContext.Provider>

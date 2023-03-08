@@ -1,7 +1,8 @@
 import { Button, FormControl, FormLabel, Input, InputGroup, InputRightElement,useToast,VStack } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios'
+import { ChatState } from "../../Context/ChatProvider";
 
 const Login = () => {
     const [show, setShow] = useState(false)
@@ -13,6 +14,7 @@ const Login = () => {
     const handleClick = ()=>{
         setShow(!show);
     }
+    const {setLoggedIn} = ChatState();
 
     const submiHandler = async ()=>{
     setLoading(true);
@@ -45,7 +47,8 @@ const Login = () => {
             isClosable: true,
             position:"bottom"
           })
-          console.log("inside try")
+          console.log("inside try");
+          setLoggedIn(true);
           localStorage.setItem('userInfo',JSON.stringify(data));
           setLoading(false);
         //   history.push("/chats");

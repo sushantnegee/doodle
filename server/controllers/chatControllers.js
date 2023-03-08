@@ -3,10 +3,12 @@ const Chat = require("../models/chatModel");
 const User = require("../models/userModel");
 
 const accessChat = expressAsyncHandler(async (req, res) => {
+  console.log("inside access chat")
+  console.log(req.user)
   const { userId } = req.body;
 
   if (!userId) {
-    console.log("user Id param issend with request");
+    console.log("user Id param is send with request");
     return res.sendStatus(400);
   }
 
@@ -41,6 +43,7 @@ const accessChat = expressAsyncHandler(async (req, res) => {
         "users",
         "-password"
       );
+      res.status(200).json(fullChat);
     } catch (error) {
       res.status(400);
       throw new Error(error.message);
@@ -50,6 +53,7 @@ const accessChat = expressAsyncHandler(async (req, res) => {
 
 const fetchChat = expressAsyncHandler(async (req, res) => {
   try {
+    console.log('fetchChat')
     Chat.find({ users: { $elemMatch: { $eq: req.user._id } } })
       .populate("users", "-password")
       .populate("groupAdmin", "-password")
