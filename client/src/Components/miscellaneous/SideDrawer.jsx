@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import {BiSearch} from 'react-icons/bi'
 import {BellIcon, ChevronDownIcon} from '@chakra-ui/icons'
 import { ChatState } from '../../Context/ChatProvider';
-import ProfileModal from './ProfileModel';
+import ProfileModal from './ProfileModal';
 import { redirect, useNavigate } from 'react-router-dom';
 import ChatLoading from '../ChatLoading';
 import axios from 'axios';
