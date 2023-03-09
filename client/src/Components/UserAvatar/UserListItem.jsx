@@ -14,10 +14,10 @@ const UserListItem = ({ user,handleFunction }) => {
         color: "white",
       }}
       w="100%"
-      d="flex"
+      display="flex"
       alignItems="center"
       color="black"
-      px={3}
+      p={3}
       py={2}
       mb={2}
       borderRadius="lg"
