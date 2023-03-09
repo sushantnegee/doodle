@@ -78,7 +78,7 @@ const createGroupChat = expressAsyncHandler(async (req, res) => {
   }
 
   let users = JSON.parse(req.body.users); // parse here  because we are sending message as string at frontend
-
+  // let users = req.body.users;
   if (users.length < 2) {
     res.status(400).send("more than 2 users are required to form a group chat");
   }
@@ -87,12 +87,12 @@ const createGroupChat = expressAsyncHandler(async (req, res) => {
   try {
     const groupChat = await Chat.create({
       chatName: req.body.name,
-      isGroup: false,
+      isGroupChat: true,
       users: users,
       groupAdmin: req.user,
     });
 
-    const fullGroupChat = await Chat.findOne({ _id: groupChat.id })
+    const fullGroupChat = await Chat.findOne({ _id: groupChat._id })
       .populate("users", "-password")
       .populate("groupAdmin", "-password");
 
