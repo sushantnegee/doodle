@@ -1,12 +1,14 @@
-import { Button, FormControl, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Spinner, useDisclosure, useToast } from '@chakra-ui/react'
+import { Box, Button, FormControl, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Spinner, useDisclosure, useToast } from '@chakra-ui/react'
 import axios from 'axios';
+import { wrap } from 'framer-motion';
 import React, { useState } from 'react'
 import { ChatState } from '../../Context/ChatProvider';
+import UserBadgeItem from '../UserAvatar/UserBadgeItem';
 import UserListItem from '../UserAvatar/UserListItem';
 
 const GroupChatModal = ({children}) => {
     const [groupChatName,setGroupChatName] = useState();
-    const [selectedUsers,setSelectedUsers] = useState();
+    const [selectedUsers,setSelectedUsers] = useState([]);
     const [search,setSearch] = useState();
     const [searchResult,setSearchResult] = useState()
     const [loading,setLoading] = useState()
@@ -45,12 +47,27 @@ const GroupChatModal = ({children}) => {
             });
           }
     }
-    const handleGroup=(value)=>{
-
+    const handleGroup=(userToAdd)=>{
+        if(selectedUsers.includes(userToAdd)){
+            toast({
+                title: "User already Added!",
+                status: "error",
+                duration: 4000,
+                isClosable: true,
+                position: "top",
+              });
+              return 
+        }
+        setSelectedUsers([...selectedUsers,userToAdd]);
+    }
+    const handleDelete=(userToDel)=>{
+        console.log("inside delete")
+        setSelectedUsers(selectedUsers.filter((sel)=>sel._id!==userToDel._id))
     }
     const handleSubmit=(value)=>{
 
     }
+    console.log('selected user  =>',selectedUsers)
   return (
     <>
       <span onClick={onOpen}>{children}</span>
@@ -68,9 +85,10 @@ const GroupChatModal = ({children}) => {
             <FormControl>
                 <Input placeholder='Add Users eg: sushant, nishant etc' mb="3" onChange={(e)=>{handleSearch(e.target.value)}}/>
             </FormControl>
+            <Box w={'100%'} display="flex" flexWrap={"wrap"}>{selectedUsers.map((user)=>(<UserBadgeItem key={user._id} user={user} handleFunction={()=>handleDelete(user)}/>))}</Box>
             {loading?<Spinner/>:
           searchResult?.slice(0,4).map((elem)=>{
-            return <UserListItem key={elem._id} user = {elem} handleFunction={handleGroup}/>
+            return <UserListItem key={elem._id} user = {elem} handleFunction={()=>handleGroup(elem)}/>
           })
           }
           </ModalBody >
