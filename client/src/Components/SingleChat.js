@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { ChatState } from "../Context/ChatProvider";
 import {
   Box,
   Button,
+  FormControl,
   IconButton,
+  Input,
+  Spinner,
   Stack,
   Text,
   useToast,
@@ -12,8 +15,21 @@ import { ArrowBackIcon } from "@chakra-ui/icons";
 import { getFullSender, getSender } from "../Config/ChatLogics";
 import ProfileModal from "./miscellaneous/ProfileModal";
 import UpdateGroupChatModal from "./miscellaneous/UpdateGroupChatModal";
+
+
+
 const SingleChat = ({ fetchAgain, setFetchAgain }) => {
+
+  const [messages,setMessages] = useState([])
+  const [newMessage,setNewMessage] = useState([])
+  const [loading,setLoading] = useState(false)
+
+
   const { user, selectedChat, setSelectedChat } = ChatState();
+
+  const sendMessage = ()=>{
+
+  }
   return (
     <>
       {selectedChat ? (
@@ -57,7 +73,18 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
            borderRadius="lg"
            overflowY="hidden"
           >
-
+            {loading?<Spinner
+            // alignSelf={'center'} 
+            margin={'auto'}
+            size={'xl'}
+            />:(<div>Messages</div>)}
+            <FormControl onKeyDown={sendMessage} mt="3" isRequired>
+              <Input
+              variant={'filled'}
+              bg='#E0E0E0'
+              placeholder="Enter a message.."
+              />
+            </FormControl>
           </Box>
         </>
       ) : (
