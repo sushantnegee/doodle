@@ -45,6 +45,8 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
         `/api/message/${selectedChat._id}`,
         config
       );
+      console.log("fetched message data =>",data)
+      console.log(messages)
       setMessages(data);
       setLoading(false);
 
@@ -101,7 +103,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
 
     // selectedChatCompare = selectedChat;
     // eslint-disable-next-line
-  });
+  }, [selectedChat]);
   return (
     <>
       {selectedChat ? (
@@ -129,7 +131,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
               :<>
               {selectedChat.chatName.toUpperCase()}
               <UpdateGroupChatModal
-              fetchAgain={fetchAgain} setFetchAgain={setFetchAgain}
+              fetchAgain={fetchAgain} setFetchAgain={setFetchAgain} fetchMessages={fetchMessages}
               />
               </>
             }
