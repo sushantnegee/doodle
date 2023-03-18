@@ -16,6 +16,7 @@ import { getFullSender, getSender } from "../Config/ChatLogics";
 import ProfileModal from "./miscellaneous/ProfileModal";
 import UpdateGroupChatModal from "./miscellaneous/UpdateGroupChatModal";
 import axios from "axios";
+import ScrollableChat from "./ScrollableChat";
 
 
 
@@ -101,8 +102,6 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
   useEffect(() => {
     fetchMessages();
 
-    // selectedChatCompare = selectedChat;
-    // eslint-disable-next-line
   }, [selectedChat]);
   return (
     <>
@@ -151,7 +150,9 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
             // alignSelf={'center'} 
             margin={'auto'}
             size={'xl'}
-            />:(<div>Messages</div>)}
+            />:(<div>
+              <ScrollableChat messages={messages}/>
+            </div>)}
             <FormControl onKeyDown={sendMessage} mt="3" isRequired>
               <Input
               variant={'filled'}
