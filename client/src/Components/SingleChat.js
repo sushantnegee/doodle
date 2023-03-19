@@ -28,6 +28,8 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
   const [newMessage,setNewMessage] = useState('')
   const [loading,setLoading] = useState(false)
   const [socketConnected,setSocketConnected] = useState(false)
+  const [typing,setTyping] = useState(false)
+  const [isTyping,setIsTyping] = useState(false)
 
 
   const toast = useToast();
@@ -69,6 +71,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
 
   const sendMessage = async (event) => {
     if (event.key === "Enter" && newMessage) {
+      socket.emit('stop typing',selectedChat._id);
       try {
         const config = {
           headers: {
@@ -100,14 +103,14 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
       }
     }
   };
-  const typingHandler = (e)=>{
-    setNewMessage(e.target.value);
-  }
+  
 
   useEffect(()=>{
     socket = io(ENDPOINT)
     socket.emit("setup", user)
     socket.on("connected", ()=>setSocketConnected(true));
+    socket.on('typing',()=> setIsTyping(true))
+    socket.on('stop typing',()=> setIsTyping(false))
 
   },[])
   useEffect(() => {
@@ -127,6 +130,25 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
       }
     })
   })
+
+  const typingHandler = (e)=>{
+    setNewMessage(e.target.value);
+    if(!socketConnected) return;
+    if(!typing){
+      setTyping(true);
+      socket.emit("typing", selectedChat._id);
+    }
+    let lastTypingTime = new Date().getTime();
+    let timerLength = 4000;
+    setTimeout(() => {
+      let timeNow = new Date().getTime();
+      let timeDiff = timeNow - lastTypingTime;
+      if (timeDiff >= timerLength && typing) {
+        socket.emit("stop typing", selectedChat._id);
+        setTyping(false);
+      }
+    }, timerLength);
+  }
   return (
     <>
       {selectedChat ? (
@@ -178,6 +200,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
               <ScrollableChat messages={messages}/>
             </div>)}
             <FormControl onKeyDown={sendMessage} mt="3" isRequired>
+              {isTyping?<div>typing...</div>:<></>}
               <Input
               variant={'filled'}
               bg='#E0E0E0'
