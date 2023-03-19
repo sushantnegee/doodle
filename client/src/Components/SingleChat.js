@@ -17,14 +17,17 @@ import ProfileModal from "./miscellaneous/ProfileModal";
 import UpdateGroupChatModal from "./miscellaneous/UpdateGroupChatModal";
 import axios from "axios";
 import ScrollableChat from "./ScrollableChat";
+import io from 'socket.io-client'
 
-
+const ENDPOINT = "http://localhost:5000"
+let socket,selectedChatCompare
 
 const SingleChat = ({ fetchAgain, setFetchAgain }) => {
 
   const [messages,setMessages] = useState([])
   const [newMessage,setNewMessage] = useState('')
   const [loading,setLoading] = useState(false)
+  const [socketConnected,setSocketConnected] = useState(false)
 
 
   const toast = useToast();
@@ -50,6 +53,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
       console.log(messages)
       setMessages(data);
       setLoading(false);
+      socket.emit('join chat', selectedChat._id);
 
     } catch (error) {
       toast({
@@ -99,6 +103,12 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
     setNewMessage(e.target.value);
   }
 
+  useEffect(()=>{
+    socket = io(ENDPOINT)
+    socket.emit("setup", user)
+    socket.on("connected", ()=>setSocketConnected(true));
+
+  },[])
   useEffect(() => {
     fetchMessages();
 
