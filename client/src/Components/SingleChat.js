@@ -86,6 +86,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
           config
         );
         console.log("sent message data =>",data)
+        socket.emit('new message', data)
         setMessages([...messages, data]);
       } catch (error) {
         toast({
@@ -111,8 +112,21 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
   },[])
   useEffect(() => {
     fetchMessages();
+    selectedChatCompare = selectedChat;
 
   }, [selectedChat]);
+
+  useEffect(()=>{
+    socket.on("message received",(newMessageReceived)=>{
+      if(!selectedChatCompare || selectedChatCompare._id !== newMessageReceived.chat._id){
+        // give notification
+      }
+
+      else{
+        setMessages([...messages,newMessageReceived]);
+      }
+    })
+  })
   return (
     <>
       {selectedChat ? (
