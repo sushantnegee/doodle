@@ -19,7 +19,7 @@ import axios from "axios";
 import ScrollableChat from "./ScrollableChat";
 import io from 'socket.io-client'
 
-const ENDPOINT = "http://localhost:5000"
+const ENDPOINT = "https://doodle-talk-server.onrender.com/`"
 let socket,selectedChatCompare
 
 const SingleChat = ({ fetchAgain, setFetchAgain }) => {
