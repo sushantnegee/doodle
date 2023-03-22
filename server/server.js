@@ -20,16 +20,17 @@ app.use('/api/chat',chatRoutes)
 app.use('/api/message',messageRoutes)
 
 // app.get("/api/chat",(req,res)=>{
-// res.send("data");
-// })
-
-// app.get("/api/chat/:id",(req,res)=>{
-//     console.log(req.params.id)
-// })
-
-app.use(notFound);
-app.use(errorHandler);
-
+    // res.send("data");
+    // })
+    
+    // app.get("/api/chat/:id",(req,res)=>{
+        //     console.log(req.params.id)
+        // })
+        
+        app.use(notFound);
+        app.use(errorHandler);
+        
+        app.get('/', (_, res) => res.send('Hello to Blogpost API'))
 
 const PORT  = process.env.PORT || 5000; 
 const server = app.listen(PORT, console.log(`listning on ${PORT}`))
