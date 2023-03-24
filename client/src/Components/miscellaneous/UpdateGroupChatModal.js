@@ -48,7 +48,7 @@ const UpdateGroupChatModal = ({ fetchAgain, setFetchAgain,fetchMessages }) => {
       };
 
       const { data } = await axios.put(
-        `http://localhost:5000/api/chat/rename`,
+        `https://doodle-talk-backend.onrender.com/api/chat/rename`,
         {
           chatId: selectedChat._id,
           chatName: groupChatName,
@@ -86,7 +86,7 @@ const UpdateGroupChatModal = ({ fetchAgain, setFetchAgain,fetchMessages }) => {
         },
       };
 
-      const { data } = await axios.get(`http://localhost:5000/api/user?search=${query}`, config);
+      const { data } = await axios.get(`https://doodle-talk-backend.onrender.com/api/user?search=${query}`, config);
       console.log("search result group model =>", data);
       setLoading(false);
       setSearchResult(data);
@@ -134,7 +134,7 @@ const UpdateGroupChatModal = ({ fetchAgain, setFetchAgain,fetchMessages }) => {
       };
 
       const { data } = await axios.put(
-        `http://localhost:5000/api/chat/groupadd`,
+        `https://doodle-talk-backend.onrender.com/api/chat/groupadd`,
         {
           chatId: selectedChat._id,
           userId: userToAdd._id,
@@ -182,7 +182,7 @@ const UpdateGroupChatModal = ({ fetchAgain, setFetchAgain,fetchMessages }) => {
       };
 
       const { data } = await axios.put(
-        `http://localhost:5000/api/chat/groupremove`,
+        `https://doodle-talk-backend.onrender.com/api/chat/groupremove`,
         {
           chatId: selectedChat._id,
           userId: userToRemove._id,
