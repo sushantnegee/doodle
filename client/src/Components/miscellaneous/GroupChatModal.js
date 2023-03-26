@@ -2,6 +2,7 @@ import { Box, Button, FormControl, Input, Modal, ModalBody, ModalCloseButton, Mo
 import axios from 'axios';
 import { wrap } from 'framer-motion';
 import React, { useState } from 'react'
+import { API_LINK } from '../../Config/ApiLink';
 import { ChatState } from '../../Context/ChatProvider';
 import UserBadgeItem from '../UserAvatar/UserBadgeItem';
 import UserListItem from '../UserAvatar/UserListItem';
@@ -32,7 +33,7 @@ const GroupChatModal = ({children}) => {
               },
             };
       
-            const { data } = await axios.get(`http://localhost:5000/api/user?search=${query}`, config);
+            const { data } = await axios.get(`${API_LINK}/api/user?search=${query}`, config);
             console.log("search result group model =>",data)
             setLoading(false);
             setSearchResult(data);
@@ -83,7 +84,7 @@ const GroupChatModal = ({children}) => {
                 },
               };
 
-              const { data } = await axios.post(`http://localhost:5000/api/chat/group`,{
+              const { data } = await axios.post(`${API_LINK}/api/chat/group`,{
                 name:groupChatName,
                 users:JSON.stringify(selectedUsers.map((ele)=>ele._id))
               }, config);

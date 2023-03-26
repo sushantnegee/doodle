@@ -18,8 +18,9 @@ import UpdateGroupChatModal from "./miscellaneous/UpdateGroupChatModal";
 import axios from "axios";
 import ScrollableChat from "./ScrollableChat";
 import io from 'socket.io-client'
+import { API_LINK } from "../Config/ApiLink";
 
-const ENDPOINT = "http://localhost:5000"
+const ENDPOINT = API_LINK
 let socket,selectedChatCompare
 
 const SingleChat = ({ fetchAgain, setFetchAgain }) => {
@@ -48,7 +49,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
       setLoading(true);
 
       const { data } = await axios.get(
-        `http://localhost:5000/api/message/${selectedChat._id}`,
+        `${API_LINK}/api/message/${selectedChat._id}`,
         config
       );
       console.log("fetched message data =>",data)
@@ -81,7 +82,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
         };
         setNewMessage("");  
         const { data } = await axios.post(
-          "http://localhost:5000/api/message",
+          `${API_LINK}/api/message`,
           {
             content: newMessage,
             chatId: selectedChat,

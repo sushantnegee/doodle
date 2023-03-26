@@ -3,6 +3,7 @@ import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios'
 import { ChatState } from "../../Context/ChatProvider";
+import { API_LINK } from "../../Config/ApiLink";
 
 const Login = () => {
     const [show, setShow] = useState(false)
@@ -38,7 +39,7 @@ const Login = () => {
         };
         console.log('inside config')
 
-    const {data} = await axios.post("http://localhost:5000/api/user/login",{email,password},config);
+    const {data} = await axios.post(`${API_LINK}/api/user/login`,{email,password},config);
 
         toast({
             title: 'Login Successfull',

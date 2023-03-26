@@ -8,6 +8,7 @@ import { redirect, useNavigate } from 'react-router-dom';
 import ChatLoading from '../ChatLoading';
 import axios from 'axios';
 import UserListItem from '../UserAvatar/UserListItem';
+import { API_LINK } from '../../Config/ApiLink';
 
 const SideDrawer = () => {
     
@@ -54,7 +55,7 @@ const SideDrawer = () => {
         },
       };
 
-      const { data } = await axios.get(`http://localhost:5000/api/user?search=${search}`, config);
+      const { data } = await axios.get(`${API_LINK}/api/user?search=${search}`, config);
       console.log(data ,"=>search result")
       setLoading(false);
       setSearchResult(data);
@@ -82,7 +83,7 @@ const SideDrawer = () => {
         },
       };
       console.log(user.token);
-      const { data } = await axios.post(`http://localhost:5000/api/chat`, { userId }, config);
+      const { data } = await axios.post(`${API_LINK}/api/chat`, { userId }, config);
       console.log("data=>",data)
       if (!chats.find((c) => c._id === data._id)) setChats([data, ...chats]);
       console.log("yes here")

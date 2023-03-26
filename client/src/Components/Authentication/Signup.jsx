@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 import { useNavigate } from "react-router-dom";
 
 import axios from 'axios'
+import { API_LINK } from '../../Config/ApiLink';
 
 const Signup = () => {
     const [show, setShow] = useState(false)
@@ -99,7 +100,7 @@ const Signup = () => {
                 }
             };
 
-            const data = await axios.post("http://localhost:5000/api/user",{name,email,password,pic},config)
+            const data = await axios.post(`${API_LINK}/api/user`,{name,email,password,pic},config)
             toast({
                 title: 'Registration Successfull',
                 status: 'success',

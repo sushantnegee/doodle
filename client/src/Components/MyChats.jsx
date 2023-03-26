@@ -2,6 +2,7 @@ import { AddIcon } from '@chakra-ui/icons';
 import { Box, Button, Stack, Text, useToast } from '@chakra-ui/react';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
+import { API_LINK } from '../Config/ApiLink';
 import { getSender } from '../Config/ChatLogics';
 import { ChatState } from '../Context/ChatProvider';
 import ChatLoading from './ChatLoading';
@@ -28,8 +29,8 @@ const MyChats = ({fetchAgain}) => {
         },
       };
 
-      const { data } = await axios.get("http://localhost:5000/api/chat", config);
-      console.log("below fetching") 
+      const { data } = await axios.get(`${API_LINK}/api/chat`, config);
+      console.log("below fetching")
       setChats(data);
     } catch (error) {
       toast({

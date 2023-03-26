@@ -18,6 +18,7 @@ import {
 } from "@chakra-ui/react";
 import axios from "axios";
 import React, { useState } from "react";
+import { API_LINK } from "../../Config/ApiLink";
 import { getSender } from "../../Config/ChatLogics";
 import { ChatState } from "../../Context/ChatProvider";
 import UserBadgeItem from "../UserAvatar/UserBadgeItem";
@@ -48,7 +49,7 @@ const UpdateGroupChatModal = ({ fetchAgain, setFetchAgain,fetchMessages }) => {
       };
 
       const { data } = await axios.put(
-        `http://localhost:5000/api/chat/rename`,
+        `${API_LINK}/api/chat/rename`,
         {
           chatId: selectedChat._id,
           chatName: groupChatName,
@@ -86,7 +87,7 @@ const UpdateGroupChatModal = ({ fetchAgain, setFetchAgain,fetchMessages }) => {
         },
       };
 
-      const { data } = await axios.get(`http://localhost:5000/api/user?search=${query}`, config);
+      const { data } = await axios.get(`${API_LINK}/api/user?search=${query}`, config);
       console.log("search result group model =>", data);
       setLoading(false);
       setSearchResult(data);
@@ -134,7 +135,7 @@ const UpdateGroupChatModal = ({ fetchAgain, setFetchAgain,fetchMessages }) => {
       };
 
       const { data } = await axios.put(
-        `http://localhost:5000/api/chat/groupadd`,
+        `${API_LINK}/api/chat/groupadd`,
         {
           chatId: selectedChat._id,
           userId: userToAdd._id,
@@ -182,7 +183,7 @@ const UpdateGroupChatModal = ({ fetchAgain, setFetchAgain,fetchMessages }) => {
       };
 
       const { data } = await axios.put(
-        `http://localhost:5000/api/chat/groupremove`,
+        `${API_LINK}/api/chat/groupremove`,
         {
           chatId: selectedChat._id,
           userId: userToRemove._id,
