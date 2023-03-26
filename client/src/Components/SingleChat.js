@@ -19,7 +19,7 @@ import axios from "axios";
 import ScrollableChat from "./ScrollableChat";
 import io from 'socket.io-client'
 
-const ENDPOINT = "https://doodle-talk-backend.onrender.com"
+const ENDPOINT = "http://localhost:5000"
 let socket,selectedChatCompare
 
 const SingleChat = ({ fetchAgain, setFetchAgain }) => {
@@ -48,7 +48,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
       setLoading(true);
 
       const { data } = await axios.get(
-        `https://doodle-talk-backend.onrender.com/api/message/${selectedChat._id}`,
+        `http://localhost:5000/api/message/${selectedChat._id}`,
         config
       );
       console.log("fetched message data =>",data)
@@ -81,7 +81,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
         };
         setNewMessage("");  
         const { data } = await axios.post(
-          "https://doodle-talk-backend.onrender.com/api/message",
+          "http://localhost:5000/api/message",
           {
             content: newMessage,
             chatId: selectedChat,

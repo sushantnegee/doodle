@@ -28,8 +28,8 @@ const MyChats = ({fetchAgain}) => {
         },
       };
 
-      const { data } = await axios.get("https://doodle-talk-backend.onrender.com/api/chat", config);
-      console.log("below fetching")
+      const { data } = await axios.get("http://localhost:5000/api/chat", config);
+      console.log("below fetching") 
       setChats(data);
     } catch (error) {
       toast({

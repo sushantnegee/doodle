@@ -54,7 +54,7 @@ const SideDrawer = () => {
         },
       };
 
-      const { data } = await axios.get(`https://doodle-talk-backend.onrender.com/api/user?search=${search}`, config);
+      const { data } = await axios.get(`http://localhost:5000/api/user?search=${search}`, config);
       console.log(data ,"=>search result")
       setLoading(false);
       setSearchResult(data);
@@ -82,7 +82,7 @@ const SideDrawer = () => {
         },
       };
       console.log(user.token);
-      const { data } = await axios.post(`https://doodle-talk-backend.onrender.com/api/chat`, { userId }, config);
+      const { data } = await axios.post(`http://localhost:5000/api/chat`, { userId }, config);
       console.log("data=>",data)
       if (!chats.find((c) => c._id === data._id)) setChats([data, ...chats]);
       console.log("yes here")
